@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/login',[\App\Http\Controllers\API\LoginController::class,'login']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => ['auth:sanctum']], function (){
+    Route::prefix('profile')->group(function (){
+        Route::match(['POST','GET'],'/' ,[\App\Http\Controllers\API\ProfileController::class, 'index']);
+    });
+    Route::get('/pesanan',[\App\Http\Controllers\API\PesananController::class,'index']);
+    Route::get('/pesanan/{id}',[\App\Http\Controllers\API\PesananController::class,'perkembangan']);
+    Route::get('/pesanan/{id}/detail/{d}',[\App\Http\Controllers\API\PesananController::class,'perkembanganDetail']);
 });

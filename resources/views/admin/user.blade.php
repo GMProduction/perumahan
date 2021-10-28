@@ -20,62 +20,48 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5>Data User</h5>
-                <button type="button ms-auto" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#tambahsiswa">Tambah Data</button>
+                <button type="button" class="btn btn-primary btn-sm ms-auto" id="addData">Tambah Data
+                </button>
             </div>
 
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Nama
-                    </th>
-                    <th>
-                        Alamat
-                    </th>
-                    <th>
-                        No. KTP
-                    </th>
-
-                    <th>
-                        Foto Ktp
-                    </th>
-
-                    <th>
-                        Action
-                    </th>
-
+                <tr>
+                    <th>#</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>No. KTP</th>
+                    <th>Foto Ktp</th>
+                    <th>Action</th>
+                </tr>
                 </thead>
 
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        Joko
-                    </td>
-                    <td>
-                        Jl. jl men
-                    </td>
-                    <td>
-                        081257182
-                    </td>
-                    <td>
-                        <img src="https://cdn-2.tstatic.net/palembang/foto/berita/2011/11/10/AVRIL.JPG"
-                            style="width: 75px; height: 100px; object-fit: cover" />
-                    </td>
-                    <td style="width: 150px">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#tambahsiswa">Ubah</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
-                    </td>
-                </tr>
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$data->firstItem() + $key}}</td>
+                        <td>{{$d->nama}}</td>
+                        <td>{{$d->pelanggan->alamat}}</td>
+                        <td>{{$d->pelanggan->no_hp}}</td>
+                        <td width="100">
+                            <img src="{{$d->pelanggan->foto_ktp}}" onerror="this.src='{{asset('/images/noimage.png')}}'; this.error=null"
+                                 style=" height: 100px; object-fit: cover" />
+                        </td>
+                        <td style="width: 150px">
+                            <button type="button" class="btn btn-success btn-sm" data-username="{{$d->username}}" data-foto="{{$d->pelanggan->foto_ktp}}" data-ktp="{{$d->pelanggan->no_ktp}}" data-hp="{{$d->pelanggan->no_hp}}" data-alamat="{{$d->pelanggan->alamat}}" data-nama="{{$d->nama}}" data-id="{{$d->id}}" id="editData">Ubah</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">Tidak ada data user</td>
+                    </tr>
+                @endforelse
 
             </table>
-
+            <div class="d-flex justify-content-end">
+                {{$data->links()}}
+            </div>
         </div>
 
 
@@ -83,68 +69,53 @@
 
 
             <!-- Modal Tambah-->
-            <div class="modal fade" id="tambahsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                    aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-
+                            <form id="form" onsubmit="return save()">
+                                @csrf
+                                <input id="id" name="id" hidden>
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama</label>
-                                    <input type="text" required class="form-control" id="nama">
+                                    <input type="text" required class="form-control" id="nama" name="nama">
                                 </div>
-
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label for="alamat">Alamat</label>
-                                    <textarea class="form-control" id="alamat" rows="3"></textarea>
+                                    <textarea required class="form-control" id="alamat" rows="3" name="alamat"></textarea>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="nphp" class="form-label">no. Hp</label>
-                                    <input type="number" required class="form-control" id="nphp">
+                                    <input type="number" required class="form-control" id="nphp" name="no_hp">
                                 </div>
-
+                                <div class="mb-3">
+                                    <label for="no_ktp" class="form-label">No. KTP</label>
+                                    <input type="number" required class="form-control" id="no_ktp" name="no_ktp">
+                                </div>
                                 <div class="mt-3 mb-2">
-                                    <label for="foto" class="form-label">Foto</label>
-                                    <input class="form-control" type="file" id="foto">
+                                    <label for="foto" class="form-label">Foto KTP</label>
+                                    <input class="form-control" type="file" id="foto" name="foto_ktp">
+                                    <div id="showFoto"></div>
                                 </div>
-
                                 <hr>
-
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="text" required class="form-control" id="username">
+                                    <input type="text" required class="form-control" id="username" name="username">
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" required class="form-control" id="password">
+                                    <input type="password" required class="form-control" id="password" name="password">
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="password-confirmation" class="form-label">Konfirmasi Password</label>
-                                    <input type="password" required class="form-control" id="password-confirmation">
+                                    <input type="password" required class="form-control" id="password-confirmation" name="password_confirmation">
                                 </div>
-                                
-                                {{-- <div class="mb-3">
-                                    <label for="kategori" class="form-label">Kategori</label>
-                                    <div class="d-flex">
-                                        <select class="form-select" aria-label="Default select example" name="idguru">
-                                            <option selected>Mata Pelajaran</option>
-                                            <option value="1">Erfin</option>
-                                            <option value="2">Joko A</option>
-                                            <option value="3">Joko B</option>
-                                        </select>
-                                        <a class="btn btn-primary">+</a>
-                                    </div>
-                                </div> --}}
-
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
@@ -162,18 +133,47 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
         })
 
+        $(document).on('click','#editData, #addData', function () {
+            $('#modal #id').val($(this).data('id'))
+            $('#modal #nama').val($(this).data('nama'))
+            $('#modal #nphp').val($(this).data('hp'))
+            $('#modal #alamat').val($(this).data('alamat'))
+            $('#modal #no_ktp').val($(this).data('ktp'))
+            $('#modal #username').val($(this).data('username'))
+            $('#modal #password').val('')
+            $('#modal #password-confirmation').val('')
+            $('#showFoto').empty();
+            if ($(this).data('id')){
+                $('#modal #password').val('**********')
+                $('#modal #password-confirmation').val('**********')
+            }
+            if ($(this).data('foto')){
+                $('#showFoto').html('<img src="'+$(this).data('foto')+'" height="50">')
+            }
+            $('#modal').modal('show')
+        })
+
+        function save() {
+            saveData('Simpan Data','form', null, after);
+            return false;
+        }
+
+        function after() {
+
+        }
+
         function hapus(id, name) {
             swal({
-                    title: "Menghapus data?",
-                    text: "Apa kamu yakin, ingin menghapus data ?!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
+                title: "Menghapus data?",
+                text: "Apa kamu yakin, ingin menghapus data ?!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
                 .then((willDelete) => {
                     if (willDelete) {
                         swal("Berhasil Menghapus data!", {

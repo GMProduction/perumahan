@@ -53,6 +53,20 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'ktp' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/ktp',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+        'fotoPerkembangan' => [
+            'driver' => 'local',
+            'root' => public_path() . '/images/perkembangan',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

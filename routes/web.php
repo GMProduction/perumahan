@@ -34,29 +34,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.dashboard');
+Route::prefix('/')->group(function (){
+    Route::get('', function () {
+        return view('admin.dashboard');
+    });
+
+    Route::get('/admin', function () {
+        return view('admin');
+    });
+
+
+    Route::match(['POST','GET'],'/user', [\App\Http\Controllers\Admin\UserController::class,'index']);
+
+    Route::get('/pembelian', function () {
+        return view('admin.pembelian');
+    });
+
+    Route::get('/perkembangan', function () {
+        return view('admin.perkembangan');
+    });
 });
 
-Route::get('/admin', function () {
-    return view('admin');
-});
-
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
-
-Route::get('/admin/user', function () {
-    return view('admin.user');
-});
-
-Route::get('/admin/pembelian', function () {
-    return view('admin.pembelian');
-});
-
-Route::get('/admin/perkembangan', function () {
-    return view('admin.perkembangan');
-});
 
 
 

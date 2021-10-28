@@ -45,20 +45,20 @@
 
 
 
-            <a href="/admin/user">
+            <a href="/user">
                 <li href="#" class="nav-link t-white">
                     <i class='bx bx-user'></i>
                     <span class="mx-2">Master User</span>
                 </li>
             </a>
 
-            <a href="/admin/pembelian" >
+            <a href="/pembelian" >
                 <li href="#" class="nav-link t-white">
                     <i class='bx bx-building-house'></i>
                     <span class="mx-2">Data Pembelian</span>
                 </li>
             </a>
-            <a href="/admin/perkembangan" >
+            <a href="/perkembangan" >
                 <li href="#" class="nav-link t-white">
                     <i class='bx bx-buildings'></i>
                     <span class="mx-2">Perkembangan</span>
