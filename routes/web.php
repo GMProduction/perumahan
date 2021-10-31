@@ -1,26 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\BanerController;
-use App\Http\Controllers\Admin\BankController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KategoriController;
-use App\Http\Controllers\Admin\LaporanController;
-use App\Http\Controllers\Admin\MemberController;
+
 use App\Http\Controllers\Admin\PesananController;
-use App\Http\Controllers\Admin\ProdukController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RajaOngkirController;
-use App\Http\Controllers\User\DikemasController;
-use App\Http\Controllers\User\KeranjangController;
-use App\Http\Controllers\User\MenungguController;
-use App\Http\Controllers\User\PembayaranController;
-use App\Http\Controllers\User\PengirimanController;
-use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\User\SelesaiController;
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\UserMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,12 +27,11 @@ Route::prefix('/')->group(function (){
 
     Route::match(['POST','GET'],'/user', [\App\Http\Controllers\Admin\UserController::class,'index']);
 
-    Route::get('/pembelian', function () {
-        return view('admin.pembelian');
-    });
+    Route::match(['POST','GET'],'/pembelian', [PesananController::class,'index']);
 
-    Route::get('/perkembangan', function () {
-        return view('admin.perkembangan');
+    Route::prefix('/perkembangan')->group(function (){
+        Route::get('/', [\App\Http\Controllers\Admin\PerkembanganController::class, 'index']);
+        Route::get('/{id}', [\App\Http\Controllers\Admin\PerkembanganController::class, 'detail']);
     });
 });
 

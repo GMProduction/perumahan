@@ -78,8 +78,8 @@ function saveData(title, form, url, resposeSuccess) {
                         console.log(textStatus);
                         console.log(error.responseJSON);
                         console.log(error.responseJSON.errors);
-                        // swal(error.responseJSON['message'] ? error.responseJSON['message'] : error.responseJSON.errors ? error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0] : error.responseJSON['msg'] )
-                        swal(error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0])
+                        swal(error.responseJSON['message'] ? error.responseJSON['message'] : error.responseJSON.errors ? error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0] : error.responseJSON['msg'] )
+                        // swal(error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0])
                     }
                 })
             }

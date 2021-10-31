@@ -15,6 +15,7 @@ class PesananRumah extends Model
         'tanggal_beli',
         'deskripsi',
         'no_sertifikat',
+        'no_pesanan',
     ];
 
     /**
@@ -22,6 +23,14 @@ class PesananRumah extends Model
      */
     public function perkembangan(){
         return $this->hasMany(Perkembangan::class,'pesanan_id');
+    }
+
+    public function perkembanganAkhir(){
+        return $this->hasOne(Perkembangan::class,'pesanan_id')->latest();
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }
