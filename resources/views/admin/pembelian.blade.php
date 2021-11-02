@@ -165,6 +165,9 @@
             return false;
         }
 
+        function after() {
+
+        }
 
 
         function hapus(id, name) {

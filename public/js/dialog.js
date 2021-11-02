@@ -23,7 +23,7 @@ function saveData(title, form, url, resposeSuccess) {
                     success: function (data, textStatus, xhr) {
                         console.log(data);
 
-                        if (xhr.status === 200) {
+                        if (xhr.status === 200 || xhr.status === 201) {
                             swal("Berhasil", {
                                 icon: "success",
                                 buttons: false,

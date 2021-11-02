@@ -60,7 +60,7 @@ return [
             'visibility' => 'public',
         ],
 
-        'fotoPerkembangan' => [
+        'perkembangan' => [
             'driver' => 'local',
             'root' => public_path() . '/images/perkembangan',
             'url' => env('APP_URL') . '/storage',

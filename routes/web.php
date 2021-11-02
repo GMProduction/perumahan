@@ -31,7 +31,8 @@ Route::prefix('/')->group(function (){
 
     Route::prefix('/perkembangan')->group(function (){
         Route::get('/', [\App\Http\Controllers\Admin\PerkembanganController::class, 'index']);
-        Route::get('/{id}', [\App\Http\Controllers\Admin\PerkembanganController::class, 'detail']);
+        Route::match(['POST','GET'],'/{id}', [\App\Http\Controllers\Admin\PerkembanganController::class, 'detail']);
+        Route::match(['POST','GET'],'/{id}/detail/{detail}/image', [\App\Http\Controllers\Admin\PerkembanganController::class, 'image'])->name('perkembanganImage');
     });
 });
 
