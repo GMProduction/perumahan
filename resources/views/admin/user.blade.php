@@ -158,7 +158,7 @@
         })
 
         function save() {
-            saveData('Simpan Data','form', null, after);
+            saveData('Simpan Data','form');
             return false;
         }
 

@@ -7,7 +7,6 @@
 
     <title>Login</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova:ital,wght@0,400;0,700;1,400&display=swap"
@@ -16,12 +15,21 @@
     <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}" type="text/css">
 
-    <!-- Styles -->
+    <script src="{{ asset('js/swal.js') }}"></script>
 
 </head>
 
 
 <body>
+@if(count($errors->messages()) > 0)
+    <script>
+        swal('{{$errors->messages()[1][0]}}', {
+            icon: "warning",
+            buttons: false,
+            timer: 2000
+        })
+    </script>
+@endif
 
 	<div class="container">
 		<div class="row">
@@ -33,14 +41,14 @@
 						</div>
 					<h3 class="text-logo">Login sebagai admin</h3>
 					<br>
-					<form class="text-center">
-						<input class="form-control border-0" type="" name="" placeholder="Type Your Username">
-						<br>
-						<input class="form-control border-0" type="" name="" placeholder="Type Your Password">
-						<br>
-						<button class="btn btn-primary btn-sm border-0" type="submit" name="submit">Login</button>
-						<span class="d-block mt-2">New to HI UDB? <a class="ms-2 link" href="/register-page">Create an account.</a></span>
-					</form>
+                        <form class="text-center" method="POST">
+                            @csrf
+                            <input class="form-control border-0" type="text" name="username" placeholder="Type Your Username">
+                            <br>
+                            <input class="form-control border-0" type="password" name="password" placeholder="Type Your Password">
+                            <br>
+                            <button class="btn btn-primary btn-sm border-0" type="submit" >Login</button>
+                        </form>
 					</div>
 
 				</div>

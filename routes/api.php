@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\LoginController;
+use App\Http\Controllers\API\PesananController;
+use App\Http\Controllers\API\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login',[\App\Http\Controllers\API\LoginController::class,'login']);
+Route::post('/login',[LoginController::class,'login']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -22,9 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::prefix('profile')->group(function (){
-        Route::match(['POST','GET'],'/' ,[\App\Http\Controllers\API\ProfileController::class, 'index']);
+        Route::match(['POST','GET'],'/' ,[ProfileController::class, 'index']);
     });
-    Route::get('/pesanan',[\App\Http\Controllers\API\PesananController::class,'index']);
-    Route::get('/pesanan/{id}',[\App\Http\Controllers\API\PesananController::class,'perkembangan']);
-    Route::get('/pesanan/{id}/detail/{d}',[\App\Http\Controllers\API\PesananController::class,'perkembanganDetail']);
+    Route::get('/pesanan',[PesananController::class,'index']);
+    Route::get('/pesanan/{id}',[PesananController::class,'perkembangan']);
+    Route::get('/pesanan/{id}/detail/{d}',[PesananController::class,'perkembanganDetail']);
 });
