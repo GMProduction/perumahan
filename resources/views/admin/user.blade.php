@@ -41,10 +41,10 @@
                     <tr>
                         <td>{{$data->firstItem() + $key}}</td>
                         <td>{{$d->nama}}</td>
-                        <td>{{$d->pelanggan->alamat}}</td>
-                        <td>{{$d->pelanggan->no_hp}}</td>
+                        <td>{{$d->pelanggan ? $d->pelanggan->alamat : ''}}</td>
+                        <td>{{$d->pelanggan ? $d->pelanggan->no_hp : ''}}</td>
                         <td width="100">
-                            <img src="{{$d->pelanggan->foto_ktp}}" onerror="this.src='{{asset('/images/noimage.png')}}'; this.error=null"
+                            <img src="{{$d->pelanggan ? $d->pelanggan->foto_ktp : ''}}" onerror="this.src='{{asset('/images/noimage.png')}}'; this.error=null"
                                  style=" height: 100px; object-fit: cover" />
                         </td>
                         <td style="width: 150px">

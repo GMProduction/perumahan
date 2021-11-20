@@ -118,7 +118,7 @@
                         @csrf
                         <input type="hidden" name="id" id="id">
                         <div class="mb-3">
-                            <label for="tanggal" class="form-label">Tanggal Pembelian</label>
+                            <label for="tanggal" class="form-label">Tanggal Pekejaan</label>
                             <input type="date" class="form-control " name="tanggal"
                                    id="tanggal" required>
                         </div>
