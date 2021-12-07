@@ -48,7 +48,7 @@
                                  style=" height: 100px; object-fit: cover" />
                         </td>
                         <td style="width: 150px">
-                            <button type="button" class="btn btn-success btn-sm" data-username="{{$d->username}}" data-foto="{{$d->pelanggan->foto_ktp}}" data-ktp="{{$d->pelanggan->no_ktp}}" data-hp="{{$d->pelanggan->no_hp}}" data-alamat="{{$d->pelanggan->alamat}}" data-nama="{{$d->nama}}" data-id="{{$d->id}}" id="editData">Ubah</button>
+                            {{-- <button type="button" class="btn btn-success btn-sm" data-username="{{$d->username}}" data-foto="{{$d->pelanggan->foto_ktp}}" data-ktp="{{$d->pelanggan->no_ktp}}" data-hp="{{$d->pelanggan->no_hp}}" data-alamat="{{$d->pelanggan->alamat}}" data-nama="{{$d->nama}}" data-id="{{$d->id}}" id="editData">Ubah</button> --}}
                             <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
                         </td>
                     </tr>
