@@ -27,25 +27,26 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>No. KTP</th>
-                    <th>Foto Ktp</th>
-                    <th>Action</th>
-                </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>No. KTP</th>
+                        <th>Foto Ktp</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
 
                 @forelse($data as $key => $d)
                     <tr>
-                        <td>{{$data->firstItem() + $key}}</td>
-                        <td>{{$d->nama}}</td>
-                        <td>{{$d->pelanggan ? $d->pelanggan->alamat : ''}}</td>
-                        <td>{{$d->pelanggan ? $d->pelanggan->no_hp : ''}}</td>
+                        <td>{{ $data->firstItem() + $key }}</td>
+                        <td>{{ $d->nama }}</td>
+                        <td>{{ $d->pelanggan ? $d->pelanggan->alamat : '' }}</td>
+                        <td>{{ $d->pelanggan ? $d->pelanggan->no_hp : '' }}</td>
                         <td width="100">
-                            <img src="{{$d->pelanggan ? $d->pelanggan->foto_ktp : ''}}" onerror="this.src='{{asset('/images/noimage.png')}}'; this.error=null"
-                                 style=" height: 100px; object-fit: cover" />
+                            <img src="{{ $d->pelanggan ? $d->pelanggan->foto_ktp : '' }}"
+                                onerror="this.src='{{ asset('/images/noimage.png') }}'; this.error=null"
+                                style=" height: 100px; object-fit: cover" />
                         </td>
                         <td style="width: 150px">
                             {{-- <button type="button" class="btn btn-success btn-sm" data-username="{{$d->username}}" data-foto="{{$d->pelanggan->foto_ktp}}" data-ktp="{{$d->pelanggan->no_ktp}}" data-hp="{{$d->pelanggan->no_hp}}" data-alamat="{{$d->pelanggan->alamat}}" data-nama="{{$d->nama}}" data-id="{{$d->id}}" id="editData">Ubah</button> --}}
@@ -60,7 +61,7 @@
 
             </table>
             <div class="d-flex justify-content-end">
-                {{$data->links()}}
+                {{ $data->links() }}
             </div>
         </div>
 
@@ -69,14 +70,13 @@
 
 
             <!-- Modal Tambah-->
-            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form id="form" onsubmit="return save()">
@@ -114,7 +114,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="password-confirmation" class="form-label">Konfirmasi Password</label>
-                                    <input type="password" required class="form-control" id="password-confirmation" name="password_confirmation">
+                                    <input type="password" required class="form-control" id="password-confirmation"
+                                        name="password_confirmation">
                                 </div>
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -133,11 +134,11 @@
 
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
         })
 
-        $(document).on('click','#editData, #addData', function () {
+        $(document).on('click', '#editData, #addData', function() {
             $('#modal #id').val($(this).data('id'))
             $('#modal #nama').val($(this).data('nama'))
             $('#modal #nphp').val($(this).data('hp'))
@@ -147,18 +148,18 @@
             $('#modal #password').val('')
             $('#modal #password-confirmation').val('')
             $('#showFoto').empty();
-            if ($(this).data('id')){
+            if ($(this).data('id')) {
                 $('#modal #password').val('**********')
                 $('#modal #password-confirmation').val('**********')
             }
-            if ($(this).data('foto')){
-                $('#showFoto').html('<img src="'+$(this).data('foto')+'" height="50">')
+            if ($(this).data('foto')) {
+                $('#showFoto').html('<img src="' + $(this).data('foto') + '" height="50">')
             }
             $('#modal').modal('show')
         })
 
         function save() {
-            saveData('Simpan Data','form');
+            saveData('Simpan Data', 'form');
             return false;
         }
 
@@ -168,12 +169,12 @@
 
         function hapus(id, name) {
             swal({
-                title: "Menghapus data?",
-                text: "Apa kamu yakin, ingin menghapus data ?!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
+                    title: "Menghapus data?",
+                    text: "Apa kamu yakin, ingin menghapus data ?!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
                 .then((willDelete) => {
                     if (willDelete) {
                         swal("Berhasil Menghapus data!", {
