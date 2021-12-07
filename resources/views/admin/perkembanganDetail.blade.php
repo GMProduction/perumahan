@@ -69,7 +69,7 @@
             </div>
 
             <hr>
-            <button type="button" class="btn btn-success btn-sm" id="addData">Tambah Data
+            <button type="button" class="btn btn-success btn-sm mb-3" id="addData">Tambah Data
             </button>
             <table class="table table-striped table-bordered ">
                 <thead>
